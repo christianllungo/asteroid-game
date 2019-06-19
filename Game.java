@@ -1,5 +1,6 @@
 package com.mycompany.a2;
 
+import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.Form;
@@ -7,18 +8,51 @@ import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.layouts.BorderLayout;
+import com.codename1.ui.layouts.BoxLayout;
 
 public class Game extends Form{
 	
 	private GameWorld gw;
+	private MapView mv;
+	private PointsView pv;
 
 	
 	public Game() {
+		
+		// set the main layout as BorderLayout
+		setLayout(new BorderLayout());
+		
+		// create the buttons container
+		Container buttonsContainer = new Container();
+		buttonsContainer.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
+		buttonsContainer.add(new Label("Buttons!"));
+		
+		// create the GameWorld
 		gw = new GameWorld();
 		gw.init();
-		play();
+		
+		// create the views
+		mv = new MapView();
+		pv = new PointsView(gw);
+		
+		// connect the observers(views) with the GameWorld
+		gw.addObserver(mv);
+		gw.addObserver(pv);
+		
+		// add the views to the main layout
+		add(BorderLayout.NORTH,pv);
+		add(BorderLayout.CENTER,mv);
+		add(BorderLayout.WEST, buttonsContainer);
+		
+		// show it on the screen
+		this.show();
+		
+		//play();
 	}
 	
+	
+	/*
 	public void play() {
 		Label myLabel = new Label("Enter a Command:");
 		this.addComponent(myLabel);
@@ -109,5 +143,7 @@ public class Game extends Form{
 		} // new ActionListener()
 		); // addActionListener
 	} // play()
+	*/
+	
 	
 }

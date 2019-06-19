@@ -1,17 +1,29 @@
 package com.mycompany.a2;
 
+import java.util.Observable;
 import java.util.Vector;
 
-public class GameWorld {
+/**
+ * 
+ * GameWorld small description
+ * MVC architecture: This class is the model that contains all data and state
+ * Observer design pattern: This class is the observable. MapView, PointsView are the observers.
+ * 
+ */
+
+public class GameWorld extends Observable{
 	
+	// fields and state values
 	private Vector<GameObject> store = new Vector<GameObject>();
-	private PlayerShip player;
 	private int score;
 	private int lives;
 	private int timeElapsed;
+	private boolean soundOn;
 	
+	// player reference variable to store the only player
+	private PlayerShip player;
 	
-	// create initial objects and setup
+	// initial setup
 	public void init() {
 		this.score = 0;
 		this.lives = 3;
