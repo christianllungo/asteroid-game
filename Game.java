@@ -11,6 +11,16 @@ import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 
+/**
+ * 
+ * Game
+ * This class is the controller and the main class. The game starts here.
+ * It creates the views(MapView, PointsView) and the model(GameWorld) and connects them together by addObserver() method
+ * Both views are Containers + 1 extra Container for displaying buttons on the left side
+ * The 3 Containers are added to the main layout of the game
+ *
+ */
+
 public class Game extends Form{
 	
 	private GameWorld gw;
@@ -23,16 +33,16 @@ public class Game extends Form{
 		// set the main layout as BorderLayout
 		setLayout(new BorderLayout());
 		
-		// create the buttons container
+		// create the container for displaying buttons on the left side
 		Container buttonsContainer = new Container();
 		buttonsContainer.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
 		buttonsContainer.add(new Label("Buttons!"));
 		
-		// create the GameWorld
+		// create the model(GameWorld)
 		gw = new GameWorld();
 		gw.init();
 		
-		// create the views
+		// create the views(MapView, PointsView)
 		mv = new MapView();
 		pv = new PointsView(gw);
 		
@@ -45,7 +55,7 @@ public class Game extends Form{
 		add(BorderLayout.CENTER,mv);
 		add(BorderLayout.WEST, buttonsContainer);
 		
-		// show it on the screen
+		// show the main layout on the screen
 		this.show();
 		
 		//play();

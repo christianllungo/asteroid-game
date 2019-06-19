@@ -422,8 +422,29 @@ public class GameWorld extends Observable{
 		}
 		System.out.println();
 	}
-	
 
+
+	
+	// getters for a2 
+	public int getScore() {
+		return score;
+	}
+
+
+	public int getLives() {
+		return lives;
+	}
+
+
+	public int getTimeElapsed() {
+		return timeElapsed;
+	}
+
+
+	public boolean isSoundOn() {
+		return soundOn;
+	}
+	
 	
 	
 }
