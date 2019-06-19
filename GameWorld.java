@@ -32,6 +32,7 @@ public class GameWorld extends Observable{
 		this.score = 0;
 		this.lives = 3;
 		this.timeElapsed = 0;
+		this.soundOn = true;
 	}
 	
 	

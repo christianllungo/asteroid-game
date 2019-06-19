@@ -17,15 +17,18 @@ import com.codename1.ui.layouts.BoxLayout;
  * Game
  * This class is the controller and the main class. The game starts here.
  * It creates the views(MapView, PointsView) and the model(GameWorld) and connects them together by addObserver() method
- * Both views are Containers + 1 extra Container for displaying buttons on the left side
- * The 3 Containers are added to the main layout of the game
+ * 
+ * The main layout (BorderLayout) consists of 3 areas:
+ * NORTH: PointsView(Container) + ToolBar(Container)
+ * WEST: A Container for displaying buttons on the left side
+ * CENTER: MapView(Container)
  * 
  * It creates all command objects and the invokers(buttons) which have a setCommand() method
  * All commands are connected to their respective buttons which will trigger when pressed and call actionPerformed() on command objects
  *
  */
 
-public class Game extends Form{ // ask professor about sysout on command objects, bug space bar, missile luncher now can do both < >, ps turn right has bugs
+public class Game extends Form{ // ask professor about sysout on command objects, bug space bar, missile luncher now can do both < >, ps turn right has bugs, move function is weird
 	
 	private GameWorld gw;
 	private MapView mv;
@@ -56,7 +59,7 @@ public class Game extends Form{ // ask professor about sysout on command objects
 		// create the container for displaying buttons on the left side
 		Container buttonsContainer = new Container();
 		buttonsContainer.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
-		buttonsContainer.add(new Label("Buttons!"));
+		buttonsContainer.add(new Label("Commands"));
 		
 		
 		// create all commands
