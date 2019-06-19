@@ -1,5 +1,6 @@
 package com.mycompany.a2;
 
+import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
@@ -18,10 +19,13 @@ import com.codename1.ui.layouts.BoxLayout;
  * It creates the views(MapView, PointsView) and the model(GameWorld) and connects them together by addObserver() method
  * Both views are Containers + 1 extra Container for displaying buttons on the left side
  * The 3 Containers are added to the main layout of the game
+ * 
+ * It creates all command objects and the invokers(buttons) which have a setCommand() method
+ * All commands are connected to their respective buttons which will trigger when pressed and call actionPerformed() on command objects
  *
  */
 
-public class Game extends Form{
+public class Game extends Form{ // ask professor about sysout on command objects, bug space bar, missile luncher now can do both < >, ps turn right has bugs
 	
 	private GameWorld gw;
 	private MapView mv;
@@ -32,28 +36,107 @@ public class Game extends Form{
 		
 		// set the main layout as BorderLayout
 		setLayout(new BorderLayout());
+
+		
+		// create the model(GameWorld)
+		gw = new GameWorld();
+		gw.init();
+		
+		
+		// create the views(MapView, PointsView)
+		mv = new MapView();
+		pv = new PointsView(gw);
+		
+		
+		// connect the observers(views) with the GameWorld
+		gw.addObserver(mv);
+		gw.addObserver(pv);
+		
 		
 		// create the container for displaying buttons on the left side
 		Container buttonsContainer = new Container();
 		buttonsContainer.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
 		buttonsContainer.add(new Label("Buttons!"));
 		
-		// create the model(GameWorld)
-		gw = new GameWorld();
-		gw.init();
 		
-		// create the views(MapView, PointsView)
-		mv = new MapView();
-		pv = new PointsView(gw);
+		// create all commands
+		AddAsteroidCommand myAddAsteroidCommand = new AddAsteroidCommand(gw);
+		AddNonPlayerShipCommand myAddNPSCommand = new AddNonPlayerShipCommand(gw);
+		AddSpaceStationCommand myAddSpaceStationCommand = new AddSpaceStationCommand(gw);
+		AddPlayerShipCommand myAddPSCommand = new AddPlayerShipCommand(gw);
+		PlayerShipFiringCommand myPSFireCommand = new PlayerShipFiringCommand(gw);
+		JumpCommand myJumpCommand = new JumpCommand(gw);
+		IncreaseSpeedCommand myIncreaseSpeedCommand = new IncreaseSpeedCommand(gw);
+		DecreaseSpeedCommand myDecreaseSpeedCommand = new DecreaseSpeedCommand(gw);
+		TurnPSLeftCommand myTurnPSLeftCommand = new TurnPSLeftCommand(gw);
+		TurnPSRightCommand myTurnPSRightCommand = new TurnPSRightCommand(gw);
+		NonPlayerShipFiringCommand myNPSFireCommand = new NonPlayerShipFiringCommand(gw);
+		LoadMissilesPSCommand myLoadMissilesCommand = new LoadMissilesPSCommand(gw);
+		PSMissileHitsAsteroidCommand myPSMissileHitsAsteroidCommand = new PSMissileHitsAsteroidCommand(gw);
+		PSMissileHitsNPSCommand myPSMissileHitsNPSCommand = new PSMissileHitsNPSCommand(gw);
+		NPSMissileHitsPSCommand myNPSMissileHitsPSCommand = new NPSMissileHitsPSCommand(gw);
+		PSHitsAsteroidCommand myPSHitsAsteroidCommand = new  PSHitsAsteroidCommand(gw);
+		PSHitsNPSCommand myPSHitsNPSCommand = new PSHitsNPSCommand(gw);
+		AsteroidHitsAsteroidCommand myAsteroidHitsAsteroidCommand = new AsteroidHitsAsteroidCommand(gw);
+		AsteroidHitsNPSCommand myAsteroidHitsNPSCommand = new AsteroidHitsNPSCommand(gw);
+		RunTickCommand myRunTickCommand = new RunTickCommand(gw);
 		
-		// connect the observers(views) with the GameWorld
-		gw.addObserver(mv);
-		gw.addObserver(pv);
+		
+		// create all buttons or invokers
+		Button addAsteroidButton = new Button("TesterButton");
+		Button addNPSButton = new Button("TesterButton");
+		Button addSpaceStationButton = new Button("TesterButton");
+		Button addPSButton = new Button("TesterButton");
+		Button psFireButton = new Button("TesterButton");
+		Button jumpButton = new Button("TesterButton");
+		
+		
+		// register the commands to buttons
+		addAsteroidButton.setCommand(myAddAsteroidCommand);
+		addNPSButton.setCommand(myAddNPSCommand);
+		addSpaceStationButton.setCommand(myAddSpaceStationCommand);
+		addPSButton.setCommand(myAddPSCommand);
+		psFireButton.setCommand(myPSFireCommand);
+		jumpButton.setCommand(myJumpCommand);
+		
+		
+		// register the commands to key listeners
+		addKeyListener(-90, myPSFireCommand); // -90 space bar BUG HERE
+		addKeyListener('j', myJumpCommand);
+		addKeyListener(-91, myIncreaseSpeedCommand); // -91 up arrow
+		addKeyListener('i', myIncreaseSpeedCommand);
+		addKeyListener(-92, myDecreaseSpeedCommand); // -92 down arrow
+		addKeyListener('d', myDecreaseSpeedCommand);
+		addKeyListener(-93, myTurnPSLeftCommand); // -93 left arrow
+		addKeyListener('l', myTurnPSLeftCommand);
+		addKeyListener(-94, myTurnPSRightCommand); // -94 right arrow
+		addKeyListener('r', myTurnPSRightCommand);
+		addKeyListener('L', myNPSFireCommand);
+		addKeyListener('n', myLoadMissilesCommand);
+		addKeyListener('k', myPSMissileHitsAsteroidCommand);
+		addKeyListener('e', myPSMissileHitsNPSCommand);
+		addKeyListener('E', myNPSMissileHitsPSCommand);
+		addKeyListener('c', myPSHitsAsteroidCommand);
+		addKeyListener('h', myPSHitsNPSCommand);
+		addKeyListener('x', myAsteroidHitsAsteroidCommand);
+		addKeyListener('I', myAsteroidHitsNPSCommand);
+		addKeyListener('t', myRunTickCommand);
+		
+		
+		// add buttons to left container for displaying buttons
+		buttonsContainer.add(addAsteroidButton);
+		buttonsContainer.add(addNPSButton);
+		buttonsContainer.add(addSpaceStationButton);
+		buttonsContainer.add(addPSButton);
+		buttonsContainer.add(psFireButton);
+		buttonsContainer.add(jumpButton);
+		
 		
 		// add the views to the main layout
 		add(BorderLayout.NORTH,pv);
 		add(BorderLayout.CENTER,mv);
 		add(BorderLayout.WEST, buttonsContainer);
+				
 		
 		// show the main layout on the screen
 		this.show();

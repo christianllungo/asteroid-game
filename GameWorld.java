@@ -9,6 +9,9 @@ import java.util.Vector;
  * MVC architecture: This class is the model that contains all data and state
  * Observer design pattern: This class is the observable. MapView, PointsView are the observers.
  * 
+ * All GameWorld methods call setChanged() and notifyObservers()
+ * Whenever a GameWorld method is called, all observers will run their update() method
+ * 
  */
 
 public class GameWorld extends Observable{
@@ -19,6 +22,7 @@ public class GameWorld extends Observable{
 	private int lives;
 	private int timeElapsed;
 	private boolean soundOn;
+
 	
 	// player reference variable to store the only player
 	private PlayerShip player;
@@ -35,6 +39,8 @@ public class GameWorld extends Observable{
 		Asteroids asteroid = new Asteroids();
 		store.add(asteroid);
 		System.out.println("A new ASTEROID has been created");
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	
@@ -42,6 +48,8 @@ public class GameWorld extends Observable{
 		NonPlayerShip nps = new NonPlayerShip();
 		store.add(nps);
 		System.out.println("A new NON-PLAYER SHIP has been created");
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	
@@ -49,6 +57,8 @@ public class GameWorld extends Observable{
 		SpaceStation station = new SpaceStation();
 		store.add(station);
 		System.out.println("A new SPACE STATION has been created");
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	
@@ -60,6 +70,8 @@ public class GameWorld extends Observable{
 		} else {
 			System.out.println("PLAYER SHIP already exists");
 		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	
@@ -70,6 +82,8 @@ public class GameWorld extends Observable{
 			this.player.increaseSpeed();
 			System.out.println("PLAYER SHIP speed increased by 3");
 		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	
@@ -80,6 +94,8 @@ public class GameWorld extends Observable{
 			this.player.decreaseSpeed();
 			System.out.println("PLAYER SHIP speed decreased by 3");
 		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	
@@ -90,6 +106,8 @@ public class GameWorld extends Observable{
 			this.player.turnLeft();
 			System.out.println("PLAYER SHIP turned left by 45");
 		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	
@@ -100,6 +118,8 @@ public class GameWorld extends Observable{
 			this.player.turnRight();
 			System.out.println("PLAYER SHIP turned right by 45");
 		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	
@@ -110,6 +130,8 @@ public class GameWorld extends Observable{
 			this.player.turnLauncherRight();
 			System.out.println("PLAYER SHIP MISSILE LAUNCHER turned right by 45");
 		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	
@@ -129,6 +151,8 @@ public class GameWorld extends Observable{
 				System.out.println("MISSILE fired from PLAYER SHIP. Missiles remaining: " + missilesLeft);
 			}
 		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	
@@ -147,6 +171,8 @@ public class GameWorld extends Observable{
 		if (npsOrNot == false) {
 			System.out.println("NON-PLAYER SHIP does not exist");
 		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	
@@ -157,6 +183,8 @@ public class GameWorld extends Observable{
 			this.player.setLocation(512.0, 384.0);
 			System.out.println("PLAYER SHIP jumped through hyperspace");
 		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	
@@ -167,6 +195,8 @@ public class GameWorld extends Observable{
 			this.player.setMissileCount(10);
 			System.out.println("PLAYER SHIP supplies loaded to maximum 10");
 		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	
@@ -194,6 +224,8 @@ public class GameWorld extends Observable{
 		} else {
 			System.out.println("Error: Either PLAYER SHIP MISSILE or ASTEROID does not exist");
 		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	
@@ -221,6 +253,8 @@ public class GameWorld extends Observable{
 		} else {
 			System.out.println("Error: Either PLAYER SHIP MISSILE or NON-PLAYER SHIP does not exist");
 		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	
@@ -247,6 +281,8 @@ public class GameWorld extends Observable{
 		} else {
 			System.out.println("Error: Either PLAYER SHIP or NON-PLAYER SHIP MISSILE does not exist");
 		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	
@@ -273,6 +309,8 @@ public class GameWorld extends Observable{
 		} else {
 			System.out.println("Error: Either PLAYER SHIP or ASTEROID does not exist");
 		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	
@@ -299,6 +337,8 @@ public class GameWorld extends Observable{
 		} else {
 			System.out.println("Error: Either PLAYER SHIP or NON-PLAYER SHIP does not exist");
 		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	
@@ -325,6 +365,8 @@ public class GameWorld extends Observable{
 		} else {
 			System.out.println("Error: There needs to be two ASTEROIDS");
 		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	
@@ -351,6 +393,8 @@ public class GameWorld extends Observable{
 		} else {
 			System.out.println("Error: Either ASTEROID or NON-PLAYER SHIP does not exist");
 		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	
@@ -388,6 +432,9 @@ public class GameWorld extends Observable{
 		// update timeElapsed
 		timeElapsed++;
 		System.out.println("Clock has ticked");
+		
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	
@@ -445,6 +492,6 @@ public class GameWorld extends Observable{
 		return soundOn;
 	}
 	
-	
+
 	
 }

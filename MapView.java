@@ -10,12 +10,15 @@ public class MapView extends Container implements Observer {
 
 	
 	public MapView() {
-		add(new Label("MapView"));
+		this.add(new Label("MapView"));
 	}
 	
 	@Override
 	public void update(Observable observable, Object data) {
 		// TODO Auto-generated method stub
+		
+		GameWorld gw = (GameWorld) observable;
+		gw.printMap();
 		
 	}
 
