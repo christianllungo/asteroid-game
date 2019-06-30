@@ -37,9 +37,9 @@ public class GameWorldProxy extends Observable implements IGameWorld{
 	}
 
 	@Override
-	public boolean isSoundOn() {
+	public boolean getSound() {
 		// TODO Auto-generated method stub
-		return gw.isSoundOn();
+		return gw.getSound();
 	}
 
 	@Override

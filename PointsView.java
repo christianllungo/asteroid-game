@@ -85,8 +85,14 @@ public class PointsView extends Container implements Observer {
 		
 		this.pointsValueLabel.setText("" + gw.getScore());
 		this.livesValueLabel.setText("" + gw.getLives());
-		this.soundValueLabel.setText("" + gw.isSoundOn());
+		this.missilesValueLabel.setText("" + gw.getMissileCount());
 		this.timeValueLabel.setText("" + gw.getTimeElapsed());
+		
+		if (gw.getSound() == true) {
+			this.soundValueLabel.setText("ON");
+		} else {
+			this.soundValueLabel.setText("OFF");
+		}
 		
 		this.repaint();
 	}

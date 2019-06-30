@@ -6,7 +6,7 @@ public interface IGameWorld {
 	public int getLives();
 	public int getMissileCount();
 	public int getTimeElapsed();
-	public boolean isSoundOn();
+	public boolean getSound();
 	public void printMap();
 	
 }

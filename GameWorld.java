@@ -21,6 +21,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	private GameObjectCollection gameCollection;
 	private int score;
 	private int lives;
+	private int mCount;
 	private int timeElapsed;
 	private boolean soundOn;
 
@@ -28,11 +29,13 @@ public class GameWorld extends Observable implements IGameWorld{
 	// player reference variable to store the only player
 	private PlayerShip player;
 	
+	
 	// initial setup
 	public void init() {
 		gameCollection = new GameObjectCollection();
 		this.score = 0;
 		this.lives = 3;
+		this.mCount = getMissileCount();
 		this.timeElapsed = 0;
 		this.soundOn = true;
 	}
@@ -49,7 +52,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	public void addNPS() {
 		NonPlayerShip nps = new NonPlayerShip();
-		store.add(nps);
+		gameCollection.add(nps);
 		System.out.println("A new NON-PLAYER SHIP has been created");
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
@@ -58,7 +61,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	public void addStation() {
 		SpaceStation station = new SpaceStation();
-		store.add(station);
+		gameCollection.add(station);
 		System.out.println("A new SPACE STATION has been created");
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
@@ -68,7 +71,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	public void addPlayerShip() {
 		if (player == null) {
 			this.player = new PlayerShip();
-			store.add(player);
+			gameCollection.add(player);
 			System.out.println("A new PLAYER SHIP has been created");
 		} else {
 			System.out.println("PLAYER SHIP already exists");
@@ -148,7 +151,7 @@ public class GameWorld extends Observable implements IGameWorld{
 			} else {
 				PSMissileLauncher plauncher = this.player.getPlayerLauncher();
 				Missiles missile = new Missiles(plauncher.getLocation(), plauncher.getHeading(), plauncher.getSpeed());
-				store.add(missile);
+				gameCollection.add(missile);
 				missilesLeft--;
 				player.setMissileCount(missilesLeft);
 				System.out.println("MISSILE fired from PLAYER SHIP. Missiles remaining: " + missilesLeft);
@@ -158,7 +161,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
-	
+	// START HERE
 	public void fireNPSMissile() {
 		boolean npsOrNot = false;
 		for(int i = 0; i < store.size(); i++) {
@@ -463,14 +466,20 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	
 	public void printMap() {
+		IIterator theElements = gameCollection.getIterator();
 		System.out.println();
 		System.out.println("CURRENT WORLD STATE");
 		System.out.println();
-		for(int i = 0; i < store.size(); i++) {
-			GameObject gameObject = store.get(i);
+		while(theElements.hasNext()) {
+			GameObject gameObject = (GameObject) theElements.getNext();
 			System.out.println(gameObject.toString());
 		}
 		System.out.println();
+		/*for(int i = 0; i < store.size(); i++) {
+			GameObject gameObject = store.get(i);
+			System.out.println(gameObject.toString());
+		}
+		System.out.println();*/
 	}
 
 
@@ -491,13 +500,17 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 
 
-	public boolean isSoundOn() {
+	public boolean getSound() {
 		return soundOn;
 	}
 	
 
 	public int getMissileCount() {
-		return 0;
+		if (player == null) {
+			return 0;
+		} else {
+			return player.getMissileCount();
+		}
 	}
 	
 }
