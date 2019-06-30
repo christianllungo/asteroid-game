@@ -14,10 +14,11 @@ import java.util.Vector;
  * 
  */
 
-public class GameWorld extends Observable{
+public class GameWorld extends Observable implements IGameWorld{
 	
 	// fields and state values
-	private Vector<GameObject> store = new Vector<GameObject>();
+	private Vector<GameObject> store = new Vector<GameObject>(); // CHECK LATER TO REMOVE IT
+	private GameObjectCollection gameCollection;
 	private int score;
 	private int lives;
 	private int timeElapsed;
@@ -29,6 +30,7 @@ public class GameWorld extends Observable{
 	
 	// initial setup
 	public void init() {
+		gameCollection = new GameObjectCollection();
 		this.score = 0;
 		this.lives = 3;
 		this.timeElapsed = 0;
@@ -38,10 +40,10 @@ public class GameWorld extends Observable{
 	
 	public void addAsteroid() {
 		Asteroids asteroid = new Asteroids();
-		store.add(asteroid);
+		gameCollection.add(asteroid);
 		System.out.println("A new ASTEROID has been created");
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
 	
@@ -50,7 +52,7 @@ public class GameWorld extends Observable{
 		store.add(nps);
 		System.out.println("A new NON-PLAYER SHIP has been created");
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
 	
@@ -59,7 +61,7 @@ public class GameWorld extends Observable{
 		store.add(station);
 		System.out.println("A new SPACE STATION has been created");
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
 	
@@ -72,7 +74,7 @@ public class GameWorld extends Observable{
 			System.out.println("PLAYER SHIP already exists");
 		}
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
 	
@@ -84,7 +86,7 @@ public class GameWorld extends Observable{
 			System.out.println("PLAYER SHIP speed increased by 3");
 		}
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
 	
@@ -96,7 +98,7 @@ public class GameWorld extends Observable{
 			System.out.println("PLAYER SHIP speed decreased by 3");
 		}
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
 	
@@ -108,7 +110,7 @@ public class GameWorld extends Observable{
 			System.out.println("PLAYER SHIP turned left by 45");
 		}
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
 	
@@ -120,7 +122,7 @@ public class GameWorld extends Observable{
 			System.out.println("PLAYER SHIP turned right by 45");
 		}
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
 	
@@ -132,7 +134,7 @@ public class GameWorld extends Observable{
 			System.out.println("PLAYER SHIP MISSILE LAUNCHER turned right by 45");
 		}
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
 	
@@ -153,7 +155,7 @@ public class GameWorld extends Observable{
 			}
 		}
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
 	
@@ -173,7 +175,7 @@ public class GameWorld extends Observable{
 			System.out.println("NON-PLAYER SHIP does not exist");
 		}
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
 	
@@ -185,7 +187,7 @@ public class GameWorld extends Observable{
 			System.out.println("PLAYER SHIP jumped through hyperspace");
 		}
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
 	
@@ -197,7 +199,7 @@ public class GameWorld extends Observable{
 			System.out.println("PLAYER SHIP supplies loaded to maximum 10");
 		}
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
 	
@@ -226,7 +228,7 @@ public class GameWorld extends Observable{
 			System.out.println("Error: Either PLAYER SHIP MISSILE or ASTEROID does not exist");
 		}
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
 	
@@ -255,7 +257,7 @@ public class GameWorld extends Observable{
 			System.out.println("Error: Either PLAYER SHIP MISSILE or NON-PLAYER SHIP does not exist");
 		}
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
 	
@@ -283,7 +285,7 @@ public class GameWorld extends Observable{
 			System.out.println("Error: Either PLAYER SHIP or NON-PLAYER SHIP MISSILE does not exist");
 		}
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
 	
@@ -311,7 +313,7 @@ public class GameWorld extends Observable{
 			System.out.println("Error: Either PLAYER SHIP or ASTEROID does not exist");
 		}
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
 	
@@ -339,7 +341,7 @@ public class GameWorld extends Observable{
 			System.out.println("Error: Either PLAYER SHIP or NON-PLAYER SHIP does not exist");
 		}
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
 	
@@ -367,7 +369,7 @@ public class GameWorld extends Observable{
 			System.out.println("Error: There needs to be two ASTEROIDS");
 		}
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
 	
@@ -395,7 +397,7 @@ public class GameWorld extends Observable{
 			System.out.println("Error: Either ASTEROID or NON-PLAYER SHIP does not exist");
 		}
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
 	
@@ -435,7 +437,7 @@ public class GameWorld extends Observable{
 		System.out.println("Clock has ticked");
 		
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
 	
@@ -473,7 +475,7 @@ public class GameWorld extends Observable{
 
 
 	
-	// getters for a2 
+	// getters for the views to access attributes
 	public int getScore() {
 		return score;
 	}
@@ -494,5 +496,8 @@ public class GameWorld extends Observable{
 	}
 	
 
+	public int getMissileCount() {
+		return 0;
+	}
 	
 }
