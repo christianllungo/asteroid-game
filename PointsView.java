@@ -81,7 +81,7 @@ public class PointsView extends Container implements Observer {
 	public void update(Observable observable, Object data) {
 		// TODO Auto-generated method stub
 		
-		GameWorld gw = (GameWorld) observable;
+		IGameWorld gw = (IGameWorld) data;
 		
 		this.pointsValueLabel.setText("" + gw.getScore());
 		this.livesValueLabel.setText("" + gw.getLives());

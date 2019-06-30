@@ -17,8 +17,8 @@ public class MapView extends Container implements Observer {
 	public void update(Observable observable, Object data) {
 		// TODO Auto-generated method stub
 		
-		IGameWorld igw = (IGameWorld) data;
-		igw.printMap();
+		IGameWorld gw = (IGameWorld) data;
+		gw.printMap();
 		this.repaint();
 	}
 
