@@ -48,7 +48,7 @@ public abstract class MovableObject extends GameObject implements IMovable {
 
 	@Override
 	public void move() {
-		double angle = 90.0 - this.heading;
+		double angle = Math.toRadians(90.0 - this.heading);
 		double deltaX = Math.cos(angle) * this.speed;
 		double deltaY = Math.sin(angle) * this.speed;
 		Point2D oldLocation = super.getLocation();

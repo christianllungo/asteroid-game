@@ -1,12 +1,14 @@
 package com.mycompany.a2;
 
 import com.codename1.ui.Button;
+import com.codename1.ui.Command;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
@@ -28,18 +30,21 @@ import com.codename1.ui.layouts.BoxLayout;
  *
  */
 
-public class Game extends Form{ // ask professor about sysout on command objects, bug space bar, missile luncher now can do both < >, ps turn right has bugs, move function is weird
+public class Game extends Form{ // ask professor about sysout on command objects, bug space bar, missile luncher now can do both < >, ps turn right has bugs
 	
 	private GameWorld gw;
 	private MapView mv;
 	private PointsView pv;
 
+	private Toolbar menu;
+	
 	
 	public Game() {
 		
 		// set the main layout as BorderLayout
 		setLayout(new BorderLayout());
 
+		sideMenu();
 		
 		// create the model(GameWorld)
 		gw = new GameWorld();
@@ -147,7 +152,30 @@ public class Game extends Form{ // ask professor about sysout on command objects
 		//play();
 	}
 	
-	
+	private void sideMenu()
+	{		
+		menu = new Toolbar();
+		this.setToolbar(menu);
+		menu.setTitle("Asteroid Game");
+		
+		Command sideMenuItem1 = new Command("New");
+		menu.addCommandToSideMenu(sideMenuItem1);
+		
+		Command sideMenuItem2 = new Command("Save");
+		menu.addCommandToSideMenu(sideMenuItem2);
+		
+		Command sideMenuItem3 = new Command("Undo");
+		menu.addCommandToSideMenu(sideMenuItem3);
+		
+		Command sideMenuItem4 = new Command("Sound");
+		menu.addCommandToSideMenu(sideMenuItem4);
+		
+		Command sideMenuItem5 = new Command("About");
+		menu.addCommandToSideMenu(sideMenuItem5);
+		
+		Command sideMenuItem6 = new Command("Quit");
+		menu.addCommandToSideMenu(sideMenuItem6);
+	}
 	/*
 	public void play() {
 		Label myLabel = new Label("Enter a Command:");
