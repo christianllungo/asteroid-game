@@ -13,6 +13,7 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.util.UITimer;
 
 /**
  * 
@@ -30,11 +31,12 @@ import com.codename1.ui.layouts.BoxLayout;
  *
  */
 
-public class Game extends Form{ // ask professor about sysout on command objects, bug space bar, missile luncher now can do both < >, ps turn right has bugs
+public class Game extends Form implements Runnable{ // ask professor about sysout on command objects, bug space bar, missile luncher now can do both < >, ps turn right has bugs
 	
 	private GameWorld gw;
 	private MapView mv;
 	private PointsView pv;
+	private UITimer timer;
 
 	private Toolbar menu;
 	
@@ -150,10 +152,12 @@ public class Game extends Form{ // ask professor about sysout on command objects
 		this.show();
 		
 		//play();
+		
+		timer = new UITimer(this);
+		timer.schedule(20, true, this);
 	}
 	
-	private void sideMenu()
-	{		
+	private void sideMenu() {		
 		menu = new Toolbar();
 		this.setToolbar(menu);
 		menu.setTitle("Asteroid Game");
@@ -176,6 +180,15 @@ public class Game extends Form{ // ask professor about sysout on command objects
 		Command sideMenuItem6 = new Command("Quit");
 		menu.addCommandToSideMenu(sideMenuItem6);
 	}
+
+	
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		gw.clockTicked();
+	}
+	
 	/*
 	public void play() {
 		Label myLabel = new Label("Enter a Command:");
