@@ -11,10 +11,10 @@ public class Asteroids extends MovableObject implements IDrawable {
 	public Asteroids(int width, int height) {
 		super(width,height);
 		setLocationRandom();
-		setColor(0, 0, 0); // color: black
+		setColor(128, 128, 128); // color: grey
 		setHeadingRandom();
 		setSpeedRandom();
-		this.size =  r.nextInt(25) + 6; // sets the size as a random integer from 6 to 30
+		this.size =  r.nextInt(21) + 60; // sets the size as a random integer from 60 to 80
 	}
 	
 	
@@ -28,7 +28,7 @@ public class Asteroids extends MovableObject implements IDrawable {
 	public void draw(Graphics g, Point pCmpRelPrnt) {
 		// TODO Auto-generated method stub
 		g.setColor(super.getColor());
-		g.fillArc((int)pCmpRelPrnt.getX()+(int)this.getX(), (int)pCmpRelPrnt.getY()+(int)this.getY(), getSize(), getSize(), 0, 360);
+		g.fillRect((int)pCmpRelPrnt.getX()+(int)this.getX(), (int)pCmpRelPrnt.getY()+(int)this.getY(), getSize(), getSize());
 	}
 	
 	

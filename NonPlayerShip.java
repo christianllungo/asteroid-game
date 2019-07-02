@@ -1,6 +1,9 @@
 package com.mycompany.a2;
 
-public class NonPlayerShip extends Ships {
+import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Point;
+
+public class NonPlayerShip extends Ships implements IDrawable {
 
 	private int size;
 	private MissileLauncher nLauncher;
@@ -25,16 +28,33 @@ public class NonPlayerShip extends Ships {
 	public int setSizeRandom() {
 		int var = r.nextInt(2);
 		if (var == 0) {
-			return 15;
-		} else {
 			return 25;
+		} else {
+			return 40;
 		}
+	}
+
+	
+
+	public int getSize() {
+		return size;
 	}
 
 
 	@Override
 	public String toString() {
 		return "Non-Player Ship: " + super.toString() + " size=" + size;
+	}
+
+
+	@Override
+	public void draw(Graphics g, Point pCmpRelPrnt) {
+		// TODO Auto-generated method stub
+		g.setColor(super.getColor());
+		g.fillTriangle((int)pCmpRelPrnt.getX()+(int)this.getX(), (int)pCmpRelPrnt.getY()+(int)this.getY()+getSize(), 
+				(int)pCmpRelPrnt.getX()+(int)this.getX()-getSize(), (int)pCmpRelPrnt.getY()+(int)this.getY()-getSize(),
+				(int)pCmpRelPrnt.getX()+(int)this.getX()+getSize(), (int)pCmpRelPrnt.getY()+(int)this.getY()-getSize()
+				);
 	}
 	
 	

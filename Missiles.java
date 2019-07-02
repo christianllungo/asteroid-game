@@ -12,10 +12,10 @@ public class Missiles extends MovableObject implements IDrawable {
 	public Missiles(Point2D location, int heading, int speed, int width, int height) {
 		super(width, height);
 		setLocation(location);
-		setColor(255, 0, 0); // color: red
+		setColor(0, 0, 0); // color: black
 		setHeading(heading);
 		setSpeed(speed + 3);
-		setFuelLevel(150);
+		setFuelLevel(100);
 	}
 	
 	
@@ -39,7 +39,7 @@ public class Missiles extends MovableObject implements IDrawable {
 	public void draw(Graphics g, Point pCmpRelPrnt) {
 		// TODO Auto-generated method stub
 		g.setColor(super.getColor());
-		g.fillArc((int)pCmpRelPrnt.getX()+(int)this.getX(), (int)pCmpRelPrnt.getY()+(int)this.getY(), 10, 10, 0, 360);
+		g.fillArc((int)pCmpRelPrnt.getX()+(int)this.getX(), (int)pCmpRelPrnt.getY()+(int)this.getY(), 15, 15, 0, 360);
 	}
 	
 	
