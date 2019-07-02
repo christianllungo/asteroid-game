@@ -54,7 +54,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		bgSound.play();
 		fireSound = new Sound("fire.wav");
 		rotationSound = new Sound("rotation.wav");
-		gameOverSound = new Sound("gameOver.wav");
+		gameOverSound = new Sound("gameOverSound.wav");
 	}
 	
 	
@@ -220,7 +220,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		if (player == null) {
 			System.out.println("PLAYER SHIP does not exist");
 		} else {
-			this.player.setLocation(512.0, 384.0);
+			this.player.setLocation(this.width/2, this.height/2);
 			System.out.println("PLAYER SHIP jumped through hyperspace");
 		}
 		this.setChanged();
@@ -521,9 +521,20 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	
 	public void quit() {
+		gameOverSound.play();
 		System.exit(0);
 	}
 	
+	public void sound() {
+		this.soundOn = !getSound();
+		if (soundOn) {
+			bgSound.play();
+		} else {
+			bgSound.pause();
+		}
+		this.setChanged();
+		this.notifyObservers(new GameWorldProxy(this));
+	}
 	
 	public void printMap() {
 		IIterator theElements = gameCollection.getIterator();

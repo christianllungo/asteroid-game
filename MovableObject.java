@@ -7,6 +7,8 @@ public abstract class MovableObject extends GameObject implements IMovable {
 	private int speed; // 0-15
 	private int heading; // 0-359
 
+	private boolean XOrNot;
+	private boolean YOrNot;
 
 	/* constructor */
 	public MovableObject(int width, int height) {
@@ -48,14 +50,33 @@ public abstract class MovableObject extends GameObject implements IMovable {
 
 	@Override
 	public void move() {
+		double newX, newY;
 		double angle = Math.toRadians(90.0 - this.heading);
 		double deltaX = Math.cos(angle) * this.speed;
 		double deltaY = Math.sin(angle) * this.speed;
 		Point2D oldLocation = super.getLocation();
 		double oldX = oldLocation.getX();
 		double oldY = oldLocation.getY();
-		double newX = Math.round((oldX + deltaX) * 10.0) / 10.0;
-		double newY = Math.round((oldY + deltaY) * 10.0) / 10.0;
+		
+		if (XOrNot) {
+			newX = Math.round((oldX - deltaX) * 10.0) / 10.0;
+		} else {
+			newX = Math.round((oldX + deltaX) * 10.0) / 10.0;
+		}
+		
+		if (YOrNot) {
+			newY = Math.round((oldY - deltaY) * 10.0) / 10.0;
+		} else {
+			newY = Math.round((oldY + deltaY) * 10.0) / 10.0;
+		}
+		
+		if (newX >= getWidth() || newX < 0) {
+			XOrNot = !XOrNot;
+		}
+		if (newY >= getHeight() || newY < 0) {
+			YOrNot = !YOrNot;
+		}
+
 		super.setLocation(newX, newY);
 	}
 

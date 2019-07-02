@@ -11,7 +11,7 @@ public class PlayerShip extends Ships implements ISteerable, IDrawable {
 	
 	public PlayerShip(int width, int height) {
 		super(width, height);
-		setLocation(512.0, 384.0); // center of game
+		setLocation(width/2, height/2); // center of game
 		setColor(0, 128, 128); // color: teal
 		setHeading(0);
 		setSpeed(0);

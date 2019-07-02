@@ -2,6 +2,7 @@ package com.mycompany.a2;
 
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Button;
+import com.codename1.ui.CheckBox;
 import com.codename1.ui.Command;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
@@ -34,7 +35,7 @@ import com.codename1.ui.util.UITimer;
  *
  */
 
-public class Game extends Form implements Runnable { // ask professor about sysout on command objects, bug space bar, ps turn right has bugs
+public class Game extends Form implements Runnable { // ask professor about sysout on command objects, bug space bar
 	
 	private GameWorld gw;
 	private MapView mv;
@@ -49,7 +50,6 @@ public class Game extends Form implements Runnable { // ask professor about syso
 		// set the main layout as BorderLayout
 		setLayout(new BorderLayout());
 
-		sideMenu();
 		
 		// create the model(GameWorld)
 		gw = new GameWorld();
@@ -60,7 +60,6 @@ public class Game extends Form implements Runnable { // ask professor about syso
 		mv = new MapView(gw);
 		pv = new PointsView(gw);
 		
-		gw.init(mv.getWidth(), mv.getHeight());
 		
 		// connect the observers(views) with the GameWorld
 		gw.addObserver(mv);
@@ -96,6 +95,9 @@ public class Game extends Form implements Runnable { // ask professor about syso
 		RunTickCommand myRunTickCommand = new RunTickCommand(gw);
 		MSLRightCommand myMSLRightCommand = new MSLRightCommand(gw);
 		MSLLeftCommand myMSLLeftCommand = new MSLLeftCommand(gw);
+		QuitCommand myQuitCommand = new QuitCommand(gw);
+		SoundCommand mySoundCommand= new SoundCommand(gw);
+		AboutCommand myAboutCommand = new AboutCommand(gw);
 		
 		
 		// create all buttons or invokers
@@ -212,18 +214,7 @@ public class Game extends Form implements Runnable { // ask professor about syso
 		add(BorderLayout.CENTER,mv);
 		add(BorderLayout.WEST, buttonsContainer);
 				
-		
-		// show the main layout on the screen
-		this.show();
-		
-		
-		//play();
-		
-		timer = new UITimer(this);
-		timer.schedule(50, true, this);
-	}
-	
-	private void sideMenu() {		
+		// side menu
 		menu = new Toolbar();
 		this.setToolbar(menu);
 		menu.setTitle("ASTEROID GAME");
@@ -237,16 +228,28 @@ public class Game extends Form implements Runnable { // ask professor about syso
 		Command sideMenuItem3 = new Command("Undo");
 		menu.addCommandToSideMenu(sideMenuItem3);
 		
-		Command sideMenuItem4 = new Command("Sound");
-		menu.addCommandToSideMenu(sideMenuItem4);
-		
-		Command sideMenuItem5 = new Command("About");
-		menu.addCommandToSideMenu(sideMenuItem5);
-		
-		Command sideMenuItem6 = new Command("Quit");
-		menu.addCommandToSideMenu(sideMenuItem6);
-	}
+		menu.addCommandToSideMenu(myAboutCommand);
 
+		CheckBox soundBox = new CheckBox("Sound");
+		soundBox.setCommand(mySoundCommand);
+		menu.addComponentToSideMenu(soundBox);
+		
+		/*Command sideMenuItem6 = new Command("Quit");
+		menu.addCommandToSideMenu(sideMenuItem6);*/
+		menu.addCommandToSideMenu(myQuitCommand);
+		
+		
+		// show the main layout on the screen
+		this.show();
+		
+		gw.init(mv.getWidth(), mv.getHeight());
+		
+		//play();
+		
+		timer = new UITimer(this);
+		timer.schedule(50, true, this);
+	}
+		
 	
 	
 	@Override
