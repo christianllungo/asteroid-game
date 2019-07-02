@@ -1,5 +1,6 @@
 package com.mycompany.a2;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Vector;
 
@@ -165,7 +166,7 @@ public class GameWorld extends Observable implements IGameWorld{
 			System.out.println("PLAYER SHIP does not exist");
 		} else {
 			this.player.turnLauncherLeft();
-			System.out.println("PLAYER SHIP MISSILE LAUNCHER turned right by 45");
+			System.out.println("PLAYER SHIP MISSILE LAUNCHER turned left by 45");
 			rotationSound.play();
 		}
 		this.setChanged();
@@ -488,19 +489,25 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	public void updateMissiles() {
 		IIterator theElements = gameCollection.getIterator();
-		Missiles mis = null;
+		ArrayList<Integer> gc = new ArrayList<Integer>();
+		int index = 0;
 		while(theElements.hasNext()) {
 			GameObject gameObject = (GameObject) theElements.getNext();
 			if (gameObject instanceof Missiles) {
-				mis = (Missiles) gameObject;
+				Missiles mis = (Missiles) gameObject;
 				int fuelLevel = mis.getFuelLevel();
 				if (fuelLevel < 1) {
-					gameCollection.remove(mis);
+					//gameCollection.remove(mis);
+					gc.add(index);
 				} else {
 					mis.setFuelLevel(fuelLevel - 1);
 				}
 			}
+			index++;
 		}
+		for(int i = 0; i < gc.size(); i++) {
+        	gameCollection.remove(gc.get(i)-i);
+        }
 	}
 	
 	

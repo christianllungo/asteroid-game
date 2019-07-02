@@ -21,6 +21,11 @@ public class GameObjectCollection implements  ICollection{
 	public void remove(GameObject obj) {
 		theCollection.removeElement(obj);
 	}
+	
+	
+	public void remove(int i) {
+		theCollection.remove(i);
+	}
 
 	
 	
