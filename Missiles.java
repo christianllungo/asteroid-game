@@ -1,18 +1,21 @@
 package com.mycompany.a2;
 
+import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Point;
 import com.codename1.ui.geom.Point2D;
 
-public class Missiles extends MovableObject {
+public class Missiles extends MovableObject implements IDrawable {
 
 	private int fuelLevel;
 
 	
-	public Missiles(Point2D location, int heading, int speed) {
+	public Missiles(Point2D location, int heading, int speed, int width, int height) {
+		super(width, height);
 		setLocation(location);
 		setColor(255, 0, 0); // color: red
 		setHeading(heading);
 		setSpeed(speed + 3);
-		setFuelLevel(15);
+		setFuelLevel(150);
 	}
 	
 	
@@ -31,7 +34,13 @@ public class Missiles extends MovableObject {
 		return "Missile: " + super.toString() + " fuel=" + fuelLevel;
 	}
 
-	
+
+	@Override
+	public void draw(Graphics g, Point pCmpRelPrnt) {
+		// TODO Auto-generated method stub
+		g.setColor(super.getColor());
+		g.fillArc((int)pCmpRelPrnt.getX()+(int)this.getX(), (int)pCmpRelPrnt.getY()+(int)this.getY(), 10, 10, 0, 360);
+	}
 	
 	
 }

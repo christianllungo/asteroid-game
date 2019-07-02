@@ -1,11 +1,15 @@
 package com.mycompany.a2;
 
-public class Asteroids extends MovableObject {
+import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Point;
+
+public class Asteroids extends MovableObject implements IDrawable {
 
 	private int size;
 	
 	
-	public Asteroids() {
+	public Asteroids(int width, int height) {
+		super(width,height);
 		setLocationRandom();
 		setColor(0, 0, 0); // color: black
 		setHeadingRandom();
@@ -20,6 +24,14 @@ public class Asteroids extends MovableObject {
 	}
 
 
+	@Override
+	public void draw(Graphics g, Point pCmpRelPrnt) {
+		// TODO Auto-generated method stub
+		g.setColor(super.getColor());
+		g.fillArc((int)pCmpRelPrnt.getX()+(int)this.getX(), (int)pCmpRelPrnt.getY()+(int)this.getY(), getSize(), getSize(), 0, 360);
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "Asteroid: " + super.toString() + " size=" + size;

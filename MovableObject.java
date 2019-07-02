@@ -9,8 +9,8 @@ public abstract class MovableObject extends GameObject implements IMovable {
 
 
 	/* constructor */
-	public MovableObject() {
-		
+	public MovableObject(int width, int height) {
+		super(width,height);
 	}
 	
 	

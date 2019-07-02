@@ -5,6 +5,9 @@ public class FixedObject extends GameObject {
 	private static int counter = 0;
 	private int id;
 	
+	public FixedObject(int width, int height) {
+		super(width,height);
+	}
 	
 	public int getId() {
 		return id;

@@ -8,5 +8,6 @@ public interface IGameWorld {
 	public int getTimeElapsed();
 	public boolean getSound();
 	public void printMap();
+	public IIterator getGwIterator();
 	
 }

@@ -8,15 +8,15 @@ import com.codename1.ui.geom.Point2D;
 public abstract class GameObject {
 	
 	private Point2D location;
-	private int color;
+	private int color, width, height;
 	protected Random r = new Random(); // Not an instance variable so it can be protected as access modifier
 	
 	
 	/* constructor */
-	public GameObject() {
-		
+	public GameObject(int width, int height){
+		this.width = width;
+		this.height = height;
 	}
-	
 	
 	/* getters and setters */
 	public Point2D getLocation() {
@@ -55,7 +55,28 @@ public abstract class GameObject {
 		this.location = rLocation;
 	}
 
+	
+	public double getX() {
+		return location.getX();
+	}
+	
+	
+	public double getY() {
+		return location.getY();
+	}
+	
+	
 
+	public int getWidth() {
+		return width;
+	}
+
+	
+	public int getHeight() {
+		return height;
+	}
+
+	
 	@Override
 	public String toString() {
 		return "loc=" + location.getX() + "," + location.getY() +" color=[" + ColorUtil.red(color) + "," + ColorUtil.green(color) + "," + ColorUtil.blue(color) + "]";
@@ -64,3 +85,4 @@ public abstract class GameObject {
 	
 	
 } // still got to add range for location 0-1024 and 0-768
+

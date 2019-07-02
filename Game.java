@@ -31,7 +31,7 @@ import com.codename1.ui.util.UITimer;
  *
  */
 
-public class Game extends Form implements Runnable{ // ask professor about sysout on command objects, bug space bar, missile luncher now can do both < >, ps turn right has bugs
+public class Game extends Form implements Runnable { // ask professor about sysout on command objects, bug space bar, ps turn right has bugs
 	
 	private GameWorld gw;
 	private MapView mv;
@@ -50,13 +50,14 @@ public class Game extends Form implements Runnable{ // ask professor about sysou
 		
 		// create the model(GameWorld)
 		gw = new GameWorld();
-		gw.init();
+		//gw.init();
 		
 		
 		// create the views(MapView, PointsView)
-		mv = new MapView();
+		mv = new MapView(gw);
 		pv = new PointsView(gw);
 		
+		gw.init(mv.getWidth(), mv.getHeight());
 		
 		// connect the observers(views) with the GameWorld
 		gw.addObserver(mv);
@@ -90,6 +91,8 @@ public class Game extends Form implements Runnable{ // ask professor about sysou
 		AsteroidHitsAsteroidCommand myAsteroidHitsAsteroidCommand = new AsteroidHitsAsteroidCommand(gw);
 		AsteroidHitsNPSCommand myAsteroidHitsNPSCommand = new AsteroidHitsNPSCommand(gw);
 		RunTickCommand myRunTickCommand = new RunTickCommand(gw);
+		MSLRightCommand myMSLRightCommand = new MSLRightCommand(gw);
+		MSLLeftCommand myMSLLeftCommand = new MSLLeftCommand(gw);
 		
 		
 		// create all buttons or invokers
@@ -130,7 +133,8 @@ public class Game extends Form implements Runnable{ // ask professor about sysou
 		addKeyListener('h', myPSHitsNPSCommand);
 		addKeyListener('x', myAsteroidHitsAsteroidCommand);
 		addKeyListener('I', myAsteroidHitsNPSCommand);
-		addKeyListener('t', myRunTickCommand);
+		addKeyListener('<', myMSLLeftCommand);
+		addKeyListener('>', myMSLRightCommand);
 		
 		
 		// add buttons to left container for displaying buttons
@@ -151,10 +155,11 @@ public class Game extends Form implements Runnable{ // ask professor about sysou
 		// show the main layout on the screen
 		this.show();
 		
+		
 		//play();
 		
 		timer = new UITimer(this);
-		timer.schedule(20, true, this);
+		timer.schedule(50, true, this);
 	}
 	
 	private void sideMenu() {		

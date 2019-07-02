@@ -57,7 +57,7 @@ public class PointsView extends Container implements Observer {
 		soundValueLabel = new Label("00");
 		timeValueLabel = new Label("00");
 		
-		pointsTextLabel.getAllStyles().setFgColor(ColorUtil.rgb(0, 0, 255)); // color: blue
+		//pointsTextLabel.getAllStyles().setFgColor(ColorUtil.rgb(0, 0, 255)); // color: blue
 		
 		
 		// add all labels to container in order

@@ -48,6 +48,11 @@ public class GameWorldProxy extends Observable implements IGameWorld{
 		gw.printMap();
 	}
 
-	
+	@Override
+	public IIterator getGwIterator() {
+		// TODO Auto-generated method stub
+		return gw.getGwIterator();
+	}
+
 	
 }

@@ -1,11 +1,14 @@
 package com.mycompany.a2;
 
+import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Point;
 import com.codename1.ui.geom.Point2D;
 
-public class PSMissileLauncher extends MissileLauncher implements ISteerable {
+public class PSMissileLauncher extends MissileLauncher implements ISteerable, IDrawable {
 
-	public PSMissileLauncher(Point2D location, int heading, int speed) {
-		super(location, heading, speed);
+	public PSMissileLauncher(Point2D location, int heading, int speed, int width, int height) {
+		super(location, heading, speed, width, height);
+		setColor(0, 0, 128); // color: navy
 	}
 
 	@Override
@@ -16,7 +19,20 @@ public class PSMissileLauncher extends MissileLauncher implements ISteerable {
 	@Override
 	public void turnLeft() {
 		// TODO Auto-generated method stub
-		
+		int dir = getHeading() + 315;
+		if (dir >= 360) {
+			dir = dir - 360;
+			setHeading(dir);
+		} else {
+			setHeading(dir);
+		}
+	}
+
+	@Override
+	public void draw(Graphics g, Point pCmpRelPrnt) {
+		// TODO Auto-generated method stub
+		g.setColor(super.getColor());
+		g.fillArc((int)pCmpRelPrnt.getX()+(int)this.getX(), (int)pCmpRelPrnt.getY()+(int)this.getY(), 20, 20, 0, 360);
 	}
 	
 	

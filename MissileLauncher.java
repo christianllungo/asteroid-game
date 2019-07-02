@@ -4,7 +4,8 @@ import com.codename1.ui.geom.Point2D;
 
 public class MissileLauncher extends MovableObject {
 
-	public MissileLauncher(Point2D location, int heading, int speed) {
+	public MissileLauncher(Point2D location, int heading, int speed, int width, int height) {
+		super(width, height);
 		setLocation(location);
 		setColor(0, 0, 128); // color: navy
 		setHeading(heading);

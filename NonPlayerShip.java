@@ -6,13 +6,14 @@ public class NonPlayerShip extends Ships {
 	private MissileLauncher nLauncher;
 	
 	
-	public NonPlayerShip() {
+	public NonPlayerShip(int width, int height) {
+		super(width, height);
 		setLocationRandom();
 		setColor(192, 192, 192); // color: silver
 		setHeadingRandom();
 		setSpeedRandom();
 		size = setSizeRandom();
-		nLauncher = new MissileLauncher(super.getLocation(), super.getHeading(), super.getSpeed());
+		nLauncher = new MissileLauncher(super.getLocation(), super.getHeading(), super.getSpeed(), width, height);
 	}
 	
 		

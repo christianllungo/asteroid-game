@@ -29,20 +29,37 @@ public class GameWorld extends Observable implements IGameWorld{
 	// player reference variable to store the only player
 	private PlayerShip player;
 	
+	// sounds 
+	private static final BGSound bgSound = new BGSound("background.mp3");
+	private Sound fireSound;
+	private Sound rotationSound;
+	private Sound gameOverSound;
+	
+	// dimensions
+	private int height;
+	private int width;
 	
 	// initial setup
-	public void init() {
+	public void init(int w, int h) {
 		gameCollection = new GameObjectCollection();
+		this.width = w;
+		this.height = h;
 		this.score = 0;
 		this.lives = 3;
 		this.mCount = getMissileCount();
 		this.timeElapsed = 0;
 		this.soundOn = true;
+		this.setChanged();
+		this.notifyObservers(new GameWorldProxy(this));
+		//bgSound.play();
+		fireSound = new Sound("fire.wav");
+		rotationSound = new Sound("rotation.wav");
+		gameOverSound = new Sound("gameOver.wav");
 	}
 	
 	
 	public void addAsteroid() {
-		Asteroids asteroid = new Asteroids();
+		Asteroids asteroid = new Asteroids(this.width, this.height);
 		gameCollection.add(asteroid);
 		System.out.println("A new ASTEROID has been created");
 		this.setChanged();
@@ -51,7 +68,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	
 	public void addNPS() {
-		NonPlayerShip nps = new NonPlayerShip();
+		NonPlayerShip nps = new NonPlayerShip(this.width, this.height);
 		gameCollection.add(nps);
 		System.out.println("A new NON-PLAYER SHIP has been created");
 		this.setChanged();
@@ -60,7 +77,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	
 	public void addStation() {
-		SpaceStation station = new SpaceStation();
+		SpaceStation station = new SpaceStation(this.width, this.height);
 		gameCollection.add(station);
 		System.out.println("A new SPACE STATION has been created");
 		this.setChanged();
@@ -70,8 +87,9 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	public void addPlayerShip() {
 		if (player == null) {
-			this.player = new PlayerShip();
+			this.player = new PlayerShip(this.width, this.height);
 			gameCollection.add(player);
+			gameCollection.add(player.getPlayerLauncher());
 			System.out.println("A new PLAYER SHIP has been created");
 		} else {
 			System.out.println("PLAYER SHIP already exists");
@@ -129,11 +147,23 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	
 	
-	public void turnMissileLauncher() {
+	public void turnMissileLauncherRight() {
 		if (player == null) {
 			System.out.println("PLAYER SHIP does not exist");
 		} else {
 			this.player.turnLauncherRight();
+			System.out.println("PLAYER SHIP MISSILE LAUNCHER turned right by 45");
+		}
+		this.setChanged();
+		this.notifyObservers(new GameWorldProxy(this));
+	}
+	
+	
+	public void turnMissileLauncherLeft() {
+		if (player == null) {
+			System.out.println("PLAYER SHIP does not exist");
+		} else {
+			this.player.turnLauncherLeft();
 			System.out.println("PLAYER SHIP MISSILE LAUNCHER turned right by 45");
 		}
 		this.setChanged();
@@ -150,11 +180,12 @@ public class GameWorld extends Observable implements IGameWorld{
 				System.out.println("Error Message: No more missiles.");
 			} else {
 				PSMissileLauncher plauncher = this.player.getPlayerLauncher();
-				Missiles missile = new Missiles(plauncher.getLocation(), plauncher.getHeading(), plauncher.getSpeed());
+				Missiles missile = new Missiles(plauncher.getLocation(), plauncher.getHeading(), plauncher.getSpeed(), this.width, this.height);
 				gameCollection.add(missile);
 				missilesLeft--;
 				player.setMissileCount(missilesLeft);
 				System.out.println("MISSILE fired from PLAYER SHIP. Missiles remaining: " + missilesLeft);
+				fireSound.play();
 			}
 		}
 		this.setChanged();
@@ -169,7 +200,7 @@ public class GameWorld extends Observable implements IGameWorld{
 			GameObject gameObject = (GameObject) theElements.getNext();
 			if (gameObject instanceof NonPlayerShip && npsOrNot == false) {
 				MissileLauncher nLauncher = ((NonPlayerShip) gameObject).getnLauncher();
-				Missiles missile = new Missiles(nLauncher.getLocation(), nLauncher.getHeading(), nLauncher.getSpeed());
+				Missiles missile = new Missiles(nLauncher.getLocation(), nLauncher.getHeading(), nLauncher.getSpeed(), this.width, this.height);
 				gameCollection.add(missile);
 				System.out.println("MISSILE fired from NON-PLAYER SHIP");
 				npsOrNot = true;
@@ -429,6 +460,11 @@ public class GameWorld extends Observable implements IGameWorld{
 			}
 		}
 		
+		if (player != null) {
+			PSMissileLauncher plauncher = player.getPlayerLauncher();
+			plauncher.setLocation(player.getLocation());
+		}
+		
 		updateMissiles();
 		// update spaceStation
 		/*SpaceStation station = null;
@@ -441,7 +477,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		}*/
 		// update timeElapsed
 		timeElapsed++;
-		System.out.println("Clock has ticked");
+		//System.out.println("Clock has ticked");
 		
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
@@ -534,5 +570,11 @@ public class GameWorld extends Observable implements IGameWorld{
 			return player.getMissileCount();
 		}
 	}
+
+
+	public IIterator getGwIterator() {
+		return gameCollection.getIterator();
+	}
+	
 	
 }
