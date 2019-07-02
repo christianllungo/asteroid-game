@@ -197,6 +197,11 @@ public class Game extends Form implements Runnable { // ask professor about syso
 		addKeyListener('<', myMSLLeftCommand);
 		addKeyListener('>', myMSLRightCommand);
 		
+		// extra functionality for easy play
+		addKeyListener('f', myPSFireCommand);
+		addKeyListener('a', myMSLLeftCommand);
+		addKeyListener('s', myMSLRightCommand); 
+		
 		
 		// add buttons to left container for displaying buttons
 		buttonsContainer.add(addAsteroidButton);

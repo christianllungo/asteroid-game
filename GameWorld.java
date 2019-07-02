@@ -31,7 +31,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	private PlayerShip player;
 	
 	// sounds 
-	private static final BGSound bgSound = new BGSound("background.mp3");
+	private static final BGSound bgSound = new BGSound("backgroundv3.mp3");
 	private Sound fireSound;
 	private Sound rotationSound;
 	private Sound gameOverSound;

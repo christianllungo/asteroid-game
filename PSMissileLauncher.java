@@ -33,7 +33,7 @@ public class PSMissileLauncher extends MissileLauncher implements ISteerable, ID
 		// TODO Auto-generated method stub
 		g.setColor(super.getColor());
 		g.drawLine((int)pCmpRelPrnt.getX()+(int)this.getX(), (int)pCmpRelPrnt.getY()+(int)this.getY(),
-				(int)pCmpRelPrnt.getX()+(int)this.getX()+(80 * (int)Math.sin(Math.toRadians(getHeading()))), (int)pCmpRelPrnt.getY()+(int)this.getY()+(80 * (int)Math.cos(Math.toRadians(getHeading()))));
+				(int)pCmpRelPrnt.getX()+(int)this.getX()+(int)(80 * Math.sin(Math.toRadians(getHeading()))), (int)pCmpRelPrnt.getY()+(int)this.getY()+(int)(80 * Math.cos(Math.toRadians(getHeading()))));
 	}
 	
 	
