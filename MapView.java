@@ -3,10 +3,12 @@ package com.mycompany.a2;
 import java.util.Observable;
 import java.util.Observer;
 
+import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Container;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Label;
 import com.codename1.ui.geom.Point;
+import com.codename1.ui.plaf.Border;
 
 public class MapView extends Container implements Observer {
 
@@ -29,6 +31,11 @@ public class MapView extends Container implements Observer {
 		
 	public MapView(GameWorld gw) {
 		this.gw = new GameWorldProxy(gw);
+		
+		// MapView container styling 
+		this.getAllStyles().setBgTransparency(255);
+		this.getAllStyles().setBgColor(ColorUtil.WHITE);
+		this.getAllStyles().setBorder(Border.createLineBorder(3, ColorUtil.rgb(0, 0, 128)));
 	}
 	
 	

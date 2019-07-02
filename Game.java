@@ -1,7 +1,9 @@
 package com.mycompany.a2;
 
+import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
+import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
@@ -13,6 +15,7 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.plaf.Border;
 import com.codename1.ui.util.UITimer;
 
 /**
@@ -102,6 +105,60 @@ public class Game extends Form implements Runnable { // ask professor about syso
 		Button addPSButton = new Button("TesterButton");
 		Button psFireButton = new Button("TesterButton");
 		Button jumpButton = new Button("TesterButton");
+		Button mslLeftButton = new Button("TesterButton");
+		Button mslRightButton = new Button("TesterButton");
+		
+		
+		// styling buttons
+		addAsteroidButton.getAllStyles().setBgTransparency(200);
+		addAsteroidButton.getAllStyles().setBgColor(ColorUtil.rgb(0, 0, 128));
+		addAsteroidButton.getAllStyles().setFgColor(ColorUtil.WHITE);
+		addAsteroidButton.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
+		addNPSButton.getAllStyles().setBgTransparency(200);
+		addNPSButton.getAllStyles().setBgColor(ColorUtil.rgb(0, 0, 128));
+		addNPSButton.getAllStyles().setFgColor(ColorUtil.WHITE);
+		addNPSButton.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
+		addSpaceStationButton.getAllStyles().setBgTransparency(200);
+		addSpaceStationButton.getAllStyles().setBgColor(ColorUtil.rgb(0, 0, 128));
+		addSpaceStationButton.getAllStyles().setFgColor(ColorUtil.WHITE);
+		addSpaceStationButton.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
+		addPSButton.getAllStyles().setBgTransparency(200);
+		addPSButton.getAllStyles().setBgColor(ColorUtil.rgb(0, 0, 128));
+		addPSButton.getAllStyles().setFgColor(ColorUtil.WHITE);
+		addPSButton.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
+		psFireButton.getAllStyles().setBgTransparency(200);
+		psFireButton.getAllStyles().setBgColor(ColorUtil.rgb(0, 0, 128));
+		psFireButton.getAllStyles().setFgColor(ColorUtil.WHITE);
+		psFireButton.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
+		jumpButton.getAllStyles().setBgTransparency(200);
+		jumpButton.getAllStyles().setBgColor(ColorUtil.rgb(0, 0, 128));
+		jumpButton.getAllStyles().setFgColor(ColorUtil.WHITE);
+		jumpButton.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
+		mslRightButton.getAllStyles().setBgTransparency(200);
+		mslRightButton.getAllStyles().setBgColor(ColorUtil.rgb(0, 0, 128));
+		mslRightButton.getAllStyles().setFgColor(ColorUtil.WHITE);
+		mslRightButton.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
+		mslLeftButton.getAllStyles().setBgTransparency(200);
+		mslLeftButton.getAllStyles().setBgColor(ColorUtil.rgb(0, 0, 128));
+		mslLeftButton.getAllStyles().setFgColor(ColorUtil.WHITE);
+		mslLeftButton.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
+		
+		addAsteroidButton.getAllStyles().setPadding(Component.TOP, 2);
+		addAsteroidButton.getAllStyles().setPadding(Component.BOTTOM, 2);
+		addNPSButton.getAllStyles().setPadding(Component.TOP, 2);
+		addNPSButton.getAllStyles().setPadding(Component.BOTTOM, 2);
+		addSpaceStationButton.getAllStyles().setPadding(Component.TOP, 2);
+		addSpaceStationButton.getAllStyles().setPadding(Component.BOTTOM, 2);
+		addPSButton.getAllStyles().setPadding(Component.TOP, 2);
+		addPSButton.getAllStyles().setPadding(Component.BOTTOM, 2);
+		psFireButton.getAllStyles().setPadding(Component.TOP, 2);
+		psFireButton.getAllStyles().setPadding(Component.BOTTOM, 2);
+		jumpButton.getAllStyles().setPadding(Component.TOP, 2);
+		jumpButton.getAllStyles().setPadding(Component.BOTTOM, 2);
+		mslRightButton.getAllStyles().setPadding(Component.TOP, 2);
+		mslRightButton.getAllStyles().setPadding(Component.BOTTOM, 2);
+		mslLeftButton.getAllStyles().setPadding(Component.TOP, 2);
+		mslLeftButton.getAllStyles().setPadding(Component.BOTTOM, 2);
 		
 		
 		// register the commands to buttons
@@ -111,6 +168,8 @@ public class Game extends Form implements Runnable { // ask professor about syso
 		addPSButton.setCommand(myAddPSCommand);
 		psFireButton.setCommand(myPSFireCommand);
 		jumpButton.setCommand(myJumpCommand);
+		mslLeftButton.setCommand(myMSLLeftCommand);
+		mslRightButton.setCommand(myMSLRightCommand);
 		
 		
 		// register the commands to key listeners
@@ -144,6 +203,8 @@ public class Game extends Form implements Runnable { // ask professor about syso
 		buttonsContainer.add(addPSButton);
 		buttonsContainer.add(psFireButton);
 		buttonsContainer.add(jumpButton);
+		buttonsContainer.add(mslLeftButton);
+		buttonsContainer.add(mslRightButton);
 		
 		
 		// add the views to the main layout
@@ -165,7 +226,7 @@ public class Game extends Form implements Runnable { // ask professor about syso
 	private void sideMenu() {		
 		menu = new Toolbar();
 		this.setToolbar(menu);
-		menu.setTitle("Asteroid Game");
+		menu.setTitle("ASTEROID GAME");
 		
 		Command sideMenuItem1 = new Command("New");
 		menu.addCommandToSideMenu(sideMenuItem1);

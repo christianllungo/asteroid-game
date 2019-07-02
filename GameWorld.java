@@ -51,7 +51,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		this.soundOn = true;
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
-		//bgSound.play();
+		bgSound.play();
 		fireSound = new Sound("fire.wav");
 		rotationSound = new Sound("rotation.wav");
 		gameOverSound = new Sound("gameOver.wav");
@@ -153,6 +153,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		} else {
 			this.player.turnLauncherRight();
 			System.out.println("PLAYER SHIP MISSILE LAUNCHER turned right by 45");
+			rotationSound.play();
 		}
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
@@ -165,6 +166,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		} else {
 			this.player.turnLauncherLeft();
 			System.out.println("PLAYER SHIP MISSILE LAUNCHER turned right by 45");
+			rotationSound.play();
 		}
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));

@@ -4,6 +4,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.Label;
 import com.codename1.ui.layouts.BoxLayout;
@@ -42,6 +43,11 @@ public class PointsView extends Container implements Observer {
 		Container myContainer = new Container();
 		myContainer.setLayout(new BoxLayout(BoxLayout.X_AXIS));
 		
+		// styling container
+		myContainer.getAllStyles().setPadding(Component.TOP, 10);
+		myContainer.getAllStyles().setPadding(Component.BOTTOM, 10);
+		/*myContainer.getAllStyles().setBgTransparency(100);
+		myContainer.getAllStyles().setBgColor(ColorUtil.BLUE);*/
 		
 		// create TextLabels
 		Label pointsTextLabel = new Label("Points:");

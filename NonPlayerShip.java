@@ -12,7 +12,7 @@ public class NonPlayerShip extends Ships implements IDrawable {
 	public NonPlayerShip(int width, int height) {
 		super(width, height);
 		setLocationRandom();
-		setColor(192, 192, 192); // color: silver
+		setColor(0, 0, 128); // color: navy
 		setHeadingRandom();
 		setSpeedRandom();
 		size = setSizeRandom();

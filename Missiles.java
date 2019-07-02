@@ -14,7 +14,7 @@ public class Missiles extends MovableObject implements IDrawable {
 		setLocation(location);
 		setColor(0, 0, 0); // color: black
 		setHeading(heading);
-		setSpeed(speed + 3);
+		setSpeed(speed + 6);
 		setFuelLevel(100);
 	}
 	

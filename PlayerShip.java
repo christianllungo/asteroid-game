@@ -12,7 +12,7 @@ public class PlayerShip extends Ships implements ISteerable, IDrawable {
 	public PlayerShip(int width, int height) {
 		super(width, height);
 		setLocation(512.0, 384.0); // center of game
-		setColor(255, 0, 0); // color: red
+		setColor(0, 128, 128); // color: teal
 		setHeading(0);
 		setSpeed(0);
 		setMissileCount(10);
@@ -87,7 +87,10 @@ public class PlayerShip extends Ships implements ISteerable, IDrawable {
 	public void draw(Graphics g, Point pCmpRelPrnt) {
 		// TODO Auto-generated method stub
 		g.setColor(super.getColor());
-		g.fillArc((int)pCmpRelPrnt.getX()+(int)this.getX(), (int)pCmpRelPrnt.getY()+(int)this.getY(), 80, 80, 0, 360);
+		g.fillTriangle((int)pCmpRelPrnt.getX()+(int)this.getX(), (int)pCmpRelPrnt.getY()+(int)this.getY()+50, 
+				(int)pCmpRelPrnt.getX()+(int)this.getX()-50, (int)pCmpRelPrnt.getY()+(int)this.getY()-50,
+				(int)pCmpRelPrnt.getX()+(int)this.getX()+50, (int)pCmpRelPrnt.getY()+(int)this.getY()-50
+				);
 	}
 	
 	
