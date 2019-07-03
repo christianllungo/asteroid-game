@@ -7,7 +7,7 @@ public class SpaceStation extends FixedObject {
 	
 	public SpaceStation(int width, int height) {
 		super(width,height);
-		setLocationRandom();
+		setLocationRandom(width, height);
 		setColor(128, 0, 0); // color: maroon
 		setId();
 		setBlinkRateRandom();

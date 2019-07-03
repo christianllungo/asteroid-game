@@ -44,10 +44,10 @@ public abstract class GameObject {
 	}
 
 
-	public void setLocationRandom() {
+	public void setLocationRandom(int width, int height) {
 		Point2D rLocation = new Point2D(0,0);
-		double dX = r.nextFloat() * 1024;
-		double dY = r.nextFloat() * 768;
+		double dX = r.nextFloat() * width;
+		double dY = r.nextFloat() * height;
 		double rdX = Math.round(dX * 10.0) / 10.0;
 		double rdY = Math.round(dY * 10.0) / 10.0;
 		rLocation.setX(rdX);

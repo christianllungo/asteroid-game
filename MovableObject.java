@@ -47,6 +47,10 @@ public abstract class MovableObject extends GameObject implements IMovable {
 		this.speed = r.nextInt(16);
 	}
 	
+	
+	public void setSpeedRandom(int min, int max) {
+		this.speed = r.nextInt(max-min+1) + min;
+	}
 
 	@Override
 	public void move() {

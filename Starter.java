@@ -52,7 +52,12 @@ public class Starter {
             return;
         }
      // Program starts here
-        new Game();
+        if (Dialog.show("ASTEROID GAME","Resize screen and press START to start the game","START","Quit")) {
+        	new Game();
+        } else {
+        	System.exit(0);
+        }
+        
     }
 
     public void stop() {

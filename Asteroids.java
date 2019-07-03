@@ -10,10 +10,10 @@ public class Asteroids extends MovableObject implements IDrawable {
 	
 	public Asteroids(int width, int height) {
 		super(width,height);
-		setLocationRandom();
+		setLocationRandom(width, height);
 		setColor(128, 128, 128); // color: grey
 		setHeadingRandom();
-		setSpeedRandom();
+		setSpeedRandom(0, 6);
 		this.size =  r.nextInt(21) + 60; // sets the size as a random integer from 60 to 80
 	}
 	

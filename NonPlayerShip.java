@@ -11,10 +11,10 @@ public class NonPlayerShip extends Ships implements IDrawable {
 	
 	public NonPlayerShip(int width, int height) {
 		super(width, height);
-		setLocationRandom();
+		setLocationRandom(width, height);
 		setColor(0, 0, 128); // color: navy
 		setHeadingRandom();
-		setSpeedRandom();
+		setSpeedRandom(10, 15);
 		size = setSizeRandom();
 		nLauncher = new MissileLauncher(super.getLocation(), super.getHeading(), super.getSpeed(), width, height);
 	}
