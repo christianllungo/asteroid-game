@@ -1,6 +1,6 @@
 
 # Asteroid Game
-CodenameOne project created as a Sac State assignment for the class CSC133 (Oject-Oriented Copmuter Graphics Programming).
+CodenameOne project created as a Sac State assignment for the class CSC133 (Oject-Oriented Computer Graphics Programming).
 
 ## General info
 Great to illustrate the uses of common design patterns such as command, iterator, and composite patterns. It also introduces MVC concepts: 
